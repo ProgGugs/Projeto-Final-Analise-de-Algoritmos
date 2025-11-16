@@ -88,19 +88,29 @@ bool busca_binaria(Camera *cameras, int tam, int estrela) {
             return true;
         }
     }
-    // Após percorrer todo o vetor 
+
+    /* Após percorrer todo o vetor e não encontrar um intervalo que a estrela poderia estar 
+        é retornada false como resposta para essa estrela não coberta por câmeras*/
     return false;
 }
 
-int t = 0;
+// Número de casos teste do problema
+int casos = 0;
 
 int main() {
-    scanf("%d", &t);
-    for (int i = 1; i <= t; i++) {
+    scanf("%d", &casos);
+    for (int i = 1; i <= casos; i++) {
+        /* Definindo as variáveis de entrada
+            n -> Tamanho da calçada
+            c -> Quantidade de câmeras */ 
         int n = 0, c = 0;
         scanf("%d %d", &n, &c);
+
+        // Criando o vetor de intervalos que as câmeras cobrem
         Camera cameras[c*2];
         int tam = 0;
+
+        // Acrecentando os intervalor no vetor criado de acordo com cada entrada
         for (int j = 0; j < c; j++) {
             int a = 0, b = 0;
             scanf("%d %d", &a, &b);
@@ -108,18 +118,29 @@ int main() {
             cameras[tam] = camera;
             tam++;
         }
+
+        // Ordenando o vetor com os intervalos das câmeras em ordem crescente
         qsort(cameras, tam, sizeof(Camera), compara_Camera);
+        // Realizando a mesclagem entre os intervalos sobrepostos
         tam = merge(cameras, tam);
+
+        // Lendo a quantidade de estrelas na calçada
         int e = 0;
         scanf("%d", &e);
+
+        // Definindo variávies de controle
         int estrela = 0;
         int resultado = 0;
+
+        // Lendo a posição de cada estrela na calçada
         for (int j = 0; j < e; j++) {
             scanf("%d", &estrela);
+            // Se a estrela está dentro de algum intervalo de câmera, é adicionada no resultado final
             if (busca_binaria(cameras, tam, estrela)) {
                resultado++;
             }
         }
+        // Impressão do resultado final da busca, para cada caso teste
         printf("Caso #%d: %d\n", i, resultado);
     }
     return 0;

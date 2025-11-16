@@ -48,7 +48,7 @@ int merge(Camera *cameras, int tam) {
        if (cameras[i].inicio <= cameras[ultimo_mesclado].fim) {
 
             /* Confirma se o fim do intervalo atual é maior do que o 
-                fim do intervalo atual para fazer a mesclagem */
+                fim do intervalo anterior para fazer a mesclagem */
             if (cameras[ultimo_mesclado].fim < cameras[i].fim) {
                 cameras[ultimo_mesclado].fim = cameras[i].fim;
             }

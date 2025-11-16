@@ -25,7 +25,7 @@ int compara_Camera(const void *a, const void *b) {
     return (inicio_a - inicio_b);
 }
 
-/* Realiza a mesclagem entre intervalos sobrepostos
+/* Realiza a mesclagem entre intervalos sobrepostos por meio de uma estratégia gulosa
     Ex1: [1,5] e [3,8] --> [1,8]
     Ex2: [3,9] e [9,18] --> [3,18] */
 int merge(Camera *cameras, int tam) {
@@ -38,6 +38,10 @@ int merge(Camera *cameras, int tam) {
     // Indice do último intervalo mesclado (começando na posição inicial do vetor)
     int ultimo_mesclado = 0;
 
+    /* Iteração pelo vetor para a mesclagem dos intervalos usando estratégia gulosa,
+    sempre considerando a melhor escolha local de mesclar os intervalos subsequentes 
+    com sobreposição já que a ordenação anterior nos permite garantir que isso nos 
+    levará para a melhor escolha global (maior número de mesclagens possíveis) */
     for (int i = 1; i < tam; i++) {
         /* Caso base para a a mesclagem 
         (inicio do intervalo atual é menor ou igual a fim do intervalo anterior) */
@@ -124,11 +128,11 @@ int main() {
         // Realizando a mesclagem entre os intervalos sobrepostos
         tam = merge(cameras, tam);
 
-        // Lendo a quantidade de estrelas na calçada
+        // Lendo a quantidade de estrelas na calçada (e)
         int e = 0;
         scanf("%d", &e);
 
-        // Definindo variávies de controle
+        // Definindo variávies de controle para as estrelas e resultado final
         int estrela = 0;
         int resultado = 0;
 
